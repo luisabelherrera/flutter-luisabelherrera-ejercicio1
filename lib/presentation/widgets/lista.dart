@@ -6,25 +6,27 @@ class CardExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.all(16),
       children: [
         _buildCard(
           context,
-          imagePath: 'assets/vehicle_placeholder.png', 
+          imageType: ImageType.asset,
+          imagePath: 'assets/R.png',
           title: 'Placa: ERF888',
           subtitle: 'Conductor: Juan Carlos\nEmpresa: XYZ',
         ),
         const SizedBox(height: 16),
         _buildCard(
           context,
-          imagePath: 'assets/vehicle_placeholder.png',
+          imageType: ImageType.asset,
+          imagePath: 'assets/R.png',
           title: 'Placa: ERF888',
           subtitle: 'Conductor: Juan Carlos\nEmpresa: XYZ',
         ),
         const SizedBox(height: 16),
         _buildCard(
           context,
-          imagePath: 'assets/vehicle_placeholder.png',
+          imageType: ImageType.asset,
+          imagePath: 'assets/R.png',
           title: 'Placa: ERF888',
           subtitle: 'Conductor: Juan Carlos\nEmpresa: XYZ',
         ),
@@ -33,6 +35,7 @@ class CardExample extends StatelessWidget {
   }
 
   Widget _buildCard(BuildContext context, {
+    required ImageType imageType,
     required String imagePath,
     required String title,
     required String subtitle,
@@ -44,12 +47,7 @@ class CardExample extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           ListTile(
-            leading: Image.asset(
-              imagePath,
-              width: 50,
-              height: 50,
-              fit: BoxFit.cover,
-            ),
+            leading: _buildImage(imageType, imagePath),
             title: Text(title),
             subtitle: Text(subtitle),
           ),
@@ -80,4 +78,38 @@ class CardExample extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildImage(ImageType imageType, String imagePath) {
+    switch (imageType) {
+      case ImageType.asset:
+        return Image.asset(
+          imagePath,
+          width: 50,
+          height: 50,
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) {
+            print('Detailed error loading image: $error');
+            print('StackTrace: $stackTrace');
+            print('Image path attempted: $imagePath');
+            return Icon(Icons.error, color: Colors.red);
+          },
+        );
+      case ImageType.icon:
+        return Icon(Icons.car_repair, size: 50, color: Colors.grey);
+      case ImageType.network:
+        return Image.network(
+          imagePath,
+          width: 50,
+          height: 50,
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) {
+            print('Error loading network image: $error');
+            print('StackTrace: $stackTrace');
+            return Icon(Icons.error, color: Colors.red);
+          },
+        );
+    }
+  }
 }
+
+enum ImageType { asset, icon, network }
