@@ -10,31 +10,30 @@ class CardExample extends StatelessWidget {
       children: [
         _buildCard(
           context,
-          icon: Icons.album,
-          title: 'placa ; ERF888',
-          subtitle: 'Conductor; juan carlos',
-          
-        ),
-        const SizedBox(height: 16), 
-        _buildCard(
-          context,
-          icon: Icons.music_note,
-          title: 'Whispers of the Wind',
-          subtitle: 'Composed by Alex Rivera. Vocals by Mia Jones.',
+          imagePath: 'assets/vehicle_placeholder.png', 
+          title: 'Placa: ERF888',
+          subtitle: 'Conductor: Juan Carlos\nEmpresa: XYZ',
         ),
         const SizedBox(height: 16),
         _buildCard(
           context,
-          icon: Icons.queue_music,
-          title: 'Echoes of Eternity',
-          subtitle: 'Produced by Sam Carter. Lyrics by Lily Hart.',
+          imagePath: 'assets/vehicle_placeholder.png',
+          title: 'Placa: ERF888',
+          subtitle: 'Conductor: Juan Carlos\nEmpresa: XYZ',
+        ),
+        const SizedBox(height: 16),
+        _buildCard(
+          context,
+          imagePath: 'assets/vehicle_placeholder.png',
+          title: 'Placa: ERF888',
+          subtitle: 'Conductor: Juan Carlos\nEmpresa: XYZ',
         ),
       ],
     );
   }
 
   Widget _buildCard(BuildContext context, {
-    required IconData icon,
+    required String imagePath,
     required String title,
     required String subtitle,
   }) {
@@ -45,7 +44,12 @@ class CardExample extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           ListTile(
-            leading: Icon(icon),
+            leading: Image.asset(
+              imagePath,
+              width: 50,
+              height: 50,
+              fit: BoxFit.cover,
+            ),
             title: Text(title),
             subtitle: Text(subtitle),
           ),
@@ -53,19 +57,19 @@ class CardExample extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                child: const Text(''),
+                child: const Text('Editar'),
                 onPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('')),
+                    const SnackBar(content: Text('Editar vehículo')),
                   );
                 },
               ),
               const SizedBox(width: 8),
               TextButton(
-                child: const Text(''),
+                child: const Text('Eliminar'),
                 onPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('')),
+                    const SnackBar(content: Text('Eliminar vehículo')),
                   );
                 },
               ),
@@ -77,48 +81,3 @@ class CardExample extends StatelessWidget {
     );
   }
 }
-
-
-  Widget _buildCard1(BuildContext context, {
-    required IconData icon,
-    required String title,
-    required String subtitle,
-  }) {
-    return Card(
-      elevation: 4,
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ListTile(
-            leading: Icon(icon),
-            title: Text(title),
-            subtitle: Text(subtitle),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton(
-                child: const Text(''),
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('')),
-                  );
-                },
-              ),
-              const SizedBox(width: 8),
-              TextButton(
-                child: const Text(''),
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('')),
-                  );
-                },
-              ),
-              const SizedBox(width: 8),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
